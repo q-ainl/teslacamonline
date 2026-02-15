@@ -1,0 +1,17 @@
+<?php return [
+	'cookies' => 'cookies.php',
+	'creds' => 'creds.php',
+	'DB' => 'DB.php',
+	'model' => 'model.php',
+	'MySQL' => 'MySQL.php',
+	'JSON' => 'JSON.php',
+	'payload' => 'payload.php',
+	'security' => 'security.php',
+	'session' => 'session.php',
+	'useragent' => 'useragent.php',
+	'visitors' => 'visitors.php',
+	'app' => 'app.php',
+	'faq' => 'faq.php',
+	'info' => 'info.php',
+	'viewer' => 'viewer.php',
+];

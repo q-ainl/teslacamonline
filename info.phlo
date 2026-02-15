@@ -1,0 +1,126 @@
+route both GET info => view($this, 'Info', scroll: 0)
+
+view:
+<div#welcome.welcome>
+	<div.wc>
+		<div.topbar>
+			<a.async href="/">Home</a>
+			<a.btn href=/viewer target=_blank>Open Viewer</a>
+		</div>
+		<h1>TeslaCam Viewer</h1>
+		<p>This page explains what the TeslaCam Viewer is, how to use it, and answers common questions about privacy, offline use, and donations.</p>
+		<hr>
+		<h2#overview>Overview</h2>
+		<p>TeslaCam Viewer is a single-page, standalone web app that lets you browse and play your Tesla dashcam footage directly in your browser. It supports multi-camera playback, timelines, a quick filter bar, location markers on a mini-map, and smooth switching between clips.</p>
+		<ul>
+			<li><strong>Zero uploads:</strong> your files never leave your device.</li>
+			<li><strong>No install required:</strong> just open the HTML file in a modern browser.</li>
+			<li><strong>Works offline:</strong> you can save the page and use it without internet access.</li>
+			<li><strong>Donationware:</strong> free to use; consider supporting via <a href=https://www.paypal.me/jordiboerman target=_blank rel=noopener>PayPal</a>, <a href=https://ko-fi.com/jordiboerman target=_blank rel=noopener>Ko-fi</a>, or <a href=https://www.buymeacoffee.com/jordiboerman target=_blank rel=noopener>Buy Me a Coffee</a>.</li>
+		</ul>
+		<hr>
+		<h2#privacy>Privacy &amp; Security</h2>
+		<p><strong>Nothing is sent to any server.</strong> The Viewer runs fully client-side in your browser.</p>
+		<ul>
+			<li>does not upload or sync files;</li>
+			<li>does not use analytics or tracking pixels;</li>
+			<li>does not store your videos beyond the current session (object URLs live only in memory).</li>
+		</ul>
+		<p>When you select your TeslaCam folder, the browser grants the page read-only access to those files for the current session only.</p>
+		<p><strong>Map note:</strong> when you open the map, it loads tile images from OpenStreetMap; your video files are never uploaded.</p>
+		<p>If you refresh or close the page, access to your files is revoked by the browser and must be granted again next time.</p>
+		<hr>
+		<h2#saving>Using it offline (optional)</h2>
+		<p>
+			TeslaCam Viewer is designed to work primarily as a website. This helps keep the project visible, up to date, and easy to support.
+			However, offline use is available if you prefer.
+		</p>
+		<p>
+			<strong>Option 1: Save as a single HTML file</strong><br>
+			You can <a href=/download>download</a> once and save the HTML file locally.
+			Opening this file directly in your browser gives you the full viewer experience, fully offline.
+		</p>
+		<p>
+			<strong>Option 2: Install as a PWA (recommended for convenience)</strong><br>
+			Most modern browsers allow you to install TeslaCam Viewer as a Progressive Web App.
+			Use the "Install app" option in your browser menu while visiting the site.
+			This adds the viewer to your device like a native app, with faster access and optional offline availability.
+		</p>
+		<p.subtle>
+			Tip: Even when installed, visiting the website occasionally ensures you're always using the latest version and helps support ongoing development.
+		</p>
+		<hr>
+		<h2#folders>Required TeslaCam folders</h2>
+		<p>Select your TeslaCam root directory. The app expects these standard subfolders:</p>
+		<ul>
+			<li><strong>RecentClips/</strong></li>
+			<li><strong>SavedClips/</strong></li>
+			<li><strong>SentryClips/</strong></li>
+		</ul>
+		<p>If these folders are missing or empty, the app will show an error or an empty list. Each <em>event</em> is presented as a set of clips that can include multiple cameras (front, left repeater, right repeater, back). All <strong>RecentClips</strong> in the selected folder are presented as one continuous event for browsing convenience.</p>
+		<hr>
+		<h2#howto>How to use</h2>
+		<ol>
+			<li>Click <strong>Open folder</strong> and pick your TeslaCam root folder.</li>
+			<li>Use the left sidebar to browse events. Click an event to load it.</li>
+			<li>Use the <strong>Play</strong> button and the timeline scrubber to control playback.</li>
+			<li>Switch layouts by clicking a camera view (single vs quad). On narrow screens, the focused camera is on top and the others appear as small previews below.</li>
+			<li>Open the <strong>Map</strong> to see approximate locations for events. Click a marker to jump to that event.</li>
+			<li>Use the filter bar for <strong>Sentry / Recent / Saved</strong> sources and sorting.</li>
+			<li>Adjust <strong>Speed, Brightness, Contrast</strong> in the settings panel.</li>
+		</ol>
+		<hr>
+		<h2#features>Key features</h2>
+		<ul>
+			<li><strong>Multi-camera sync:</strong> the Viewer lines up the front/left/right/back clips on a single timeline.</li>
+			<li><strong>Smooth segment transitions:</strong> segments are preloaded to avoid stutter at boundaries.</li>
+			<li><strong>Global scrubber:</strong> one slider targets all cameras; the app selects the right segment automatically.</li>
+			<li><strong>Map integration:</strong> optional markers based on event metadata (if available).</li>
+			<li><strong>Responsive layout:</strong> optimized for narrow and wide screens.</li>
+		</ul>
+		<hr>
+		<h2#supports>What it supports</h2>
+		<h3>Sentry Mode Viewer</h3>
+		<p>Browse Sentry events with thumbnails (when available), timestamps, and optional event metadata like reason and approximate location.</p>
+		<h3>RecentClips Viewer</h3>
+		<p>RecentClips are presented as one continuous stream for fast browsing and scrubbing without juggling separate segments.</p>
+		<h3>SavedClips Viewer</h3>
+		<p>View Saved clips the same way as Sentry, with quick filtering and synced camera layout.</p>
+		<h3>Multi-camera dashcam playback</h3>
+		<p>Front/left/right/back clips are aligned on one timeline. Use a single scrubber to jump through the event across all cameras.</p>
+		<hr>
+		<h2#shortcuts>Keyboard shortcuts</h2>
+		<ul>
+			<li><strong>Space</strong> Play/Pause</li>
+			<li><strong>Left/right</strong> Forward/backward</li>
+		</ul>
+		<hr>
+		<h2#donate>Donationware</h2>
+		<p>The app is free to use. If it saves you time or proves helpful, please consider supporting the project. Thank you!</p>
+		{{ %app->support }}
+		<hr>
+		<h2#troubleshooting>Troubleshooting checklist</h2>
+		<ul>
+			<li>Reload the page and reselect the TeslaCam folder.</li>
+			<li>Confirm the folder contains <strong>RecentClips</strong>, <strong>SavedClips</strong>, and <strong>SentryClips</strong>.</li>
+			<li>Try a different browser if playback or file permissions misbehave.</li>
+			<li>Move the clips to a faster disk if you notice I/O bottlenecks.</li>
+		</ul>
+		<hr>
+		<h2#credits>Credits</h2>
+		<p>Tesla is a trademark of Tesla, Inc. This project is an independent Viewer designed for personal use with locally stored footage.</p>
+		<hr>
+		{{ %app->qai }}
+		<div>
+			<p>Other products in our ecosystem:</p>
+			<ul.qai-list>
+				<li>
+					<a href=https://ecms.nu/ target=_blank><strong>eCMS</strong></a> a lightweight encrypted content management system for structured, maintainable data.
+				</li>
+				<li>
+					<a href=https://filesystem.online/ target=_blank><strong>Filesystem.online</strong></a> a smart, local-first tool that organizes files by creating the right folders automatically, based on what the files actually contain.
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

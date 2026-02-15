@@ -1,0 +1,108 @@
+prop lang = 'en'
+prop title => 'TeslaCam Online'.(req ? void : " | $this->slogan")
+prop slogan = 'Extended Tesla Dashcam viewer'
+prop description = 'Browse and play TeslaCam Sentry, Recent and Saved clips locally in your browser with map preview and multi-camera sync.'
+prop token => %cookies->token ??= token(20)
+prop version = '1.0.3'
+
+route both GET => view($this, scroll: 0)
+
+app::route()
+view($this->notFound, 404)
+
+view head:
+<meta property=og:title content="{{ title() }}">
+<meta property=og:description content="Open your TeslaCam folder and view Sentry/Recent/Saved clips with a map and multi-camera layout. Everything runs locally in your browser.">
+<meta property=og:url content="https://{{ host.slash.esc(req) }}">
+<meta property=og:image content="https://{{ host }}/viewer.webp">
+<link rel=canonical href="https://{{ host.slash.esc(req) }}">
+
+view:
+<div#welcome.welcome>
+	<div.wc>
+		<h1>Welcome to TeslaCam Viewer</h1>
+		<h2>Local-only dashcam viewer</h2>
+		<p>Easily explore and relive the moments captured by your Tesla’s built-in cameras. TeslaCam.online viewer lets you browse, filter and play back your TeslaCam Sentry, Recent and Saved clips. All <strong>locally</strong> in your browser with map preview and multi-camera sync.</p>
+		<ul.highlights>
+			<li><strong>Instant browsing</strong> of TeslaCam events</li>
+			<li><strong>Multi-camera sync</strong> in a single player</li>
+			<li><strong>100% local & private</strong></li>
+		</ul>
+		<p><strong>No uploads, no installs:</strong> your videos stay on your device. The viewer runs fully standalone inside this single page. Simply click <em>“Open folder”</em> and select your TeslaCam root directory to get started.</p>
+		<p.img><iframe src=https://www.youtube.com/embed/m8lQ1SCjJow allow=fullscreen/></p>
+		<p.cta><a href=/viewer target=_blank class=btn>Open Viewer</a></p>
+		<h2>How it works</h2>
+		<ul class="how-it-works">
+			<li>Open TeslaCam Viewer and click <strong>“Open folder”</strong></li>
+			<li>Select your <strong>TeslaCam root directory</strong> from your drive</li>
+			<li>Browse, filter and play your clips with map preview and multi-camera sync</li>
+		</ul>
+		<p>Want to know more? See the <a.async href=/faq>FAQ</a> for quick answers or visit the <a.async href=/info>info page</a> for a detailed overview.</p>
+		{{ %app->qai }}
+		<h2>Support the development</h2>
+		<p>This project is donationware: free to use, with optional support if you’d like to give back. Your support helps keep it free, offline-capable, and actively maintained.</p>
+		{{ %app->support }}
+	</div>
+</div>
+
+view support:
+<div.support-grid>
+	<a.support-card.paypal href=https://www.paypal.me/jordiboerman target=_blank rel=noopener><span class=logo><span class="icon paypal" aria-hidden=true></span></span><span class=label>PayPal</span></a>
+	<a.support-card.kofi href=https://ko-fi.com/jordiboerman target=_blank rel=noopener><span class=logo><span class="icon kofi" aria-hidden=true></span></span><span class=label>Ko-fi</span></a>
+	<a.support-card.bmc href=https://www.buymeacoffee.com/jordiboerman target=_blank rel=noopener><span class=logo><span class="icon bmc" aria-hidden=true></span></span><span class=label>Buy Me a Coffee</span></a>
+</div>
+
+view qai:
+<div#qai.qai>
+	<div.qai-content>
+		<h2>Discover Q-AI</h2>
+		<p><strong>TeslaCam Viewer</strong> is part of Q-AI.</p>
+		<p>Browse the growing Q-AI ecosystem of high-tech, convenience-driven web tools and see what else is being built.</p>
+		<a.qai-btn href=https://q-ai.nl/ target=_blank rel=noopener>Explore Q-AI</a>
+	</div>
+	<div.qai-logo>
+		<a href=https://q-ai.nl/ target=_blank rel=noopener><img src=/logo.png alt="Q-AI logo"></a>
+	</div>
+</div>
+
+view notFound:
+<div#welcome.welcome>
+	<div.wc>
+		<h1>Page not found</h1>
+	</div>
+</div>
+
+<style ns=app,viewer>
+:root {
+	$accent: #3ddc97
+	$accent2: #5eb1ff
+	$bg: #1a1a1a
+	$bg1: #2c2c2c
+	$bg2: #3a3a3a
+	$fg: #e0e0e0
+	$font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif
+	$line: #444
+	$muted: #bdbdbd
+	$primary: #e82127
+	$warn: #ffd166
+}
+* {
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+}
+html, body {
+	color: $fg
+	font: 16px $font
+	min-height: 100%
+}
+body: background: transparent
+body::before {
+  content: ""
+  position: fixed
+  inset: 0
+  z-index: -1
+  background: linear-gradient(180deg, #120a0d 0%, #14121a 45%, #1a1d22 100%)
+	pointer-events: none
+}
+</style>

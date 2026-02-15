@@ -1,0 +1,64 @@
+route GET viewer => view($this, ns: 'viewer')
+
+route GET download => output (
+	DOM (
+		$this->view.lf.tag('script', lf.file_get_contents(www.'viewer.js')),
+		$this->head.lf.tag('style', lf.file_get_contents(www.'viewer.css').lf).lf,
+	),
+	'TeslaCamOnline.html',
+	true,
+)
+
+<style ns=viewer>
+html, body: overflow: hidden
+</style>
+
+view head:
+<title>TeslaCam Viewer</title>
+<meta name=viewport content="width=device-width">
+
+view:
+<div#app>
+	<aside#sidebar.sidebar>
+		<header>
+		<button#openBtn.action>Open folder</button>
+		<input#dirInput type=file webkitdirectory directory multiple hidden>
+		<button#locBtn.action.toggle>Map</button>
+		<button#settingsBtn.action.toggle>⚙</button>
+		</header>
+		<div#settings.settings>
+			<div.row>
+				<label.small>Location</label>
+				<div.rowLoc>
+					<select#citySelect.select><option value="">All locations</option></select>
+					<button#clearArea.action style="padding:8px 12px">Clear</button>
+				</div>
+			</div>
+			<div.row.row3>
+				<div.fcol><label.small>Speed</label><input#speed.range type=range min=0.1 max=4 step=0.3 value=1></div>
+				<div.fcol><label.small>Brightness</label><input#bri.range type=range min=0.2 max=2 step=0.05 value=1></div>
+				<div.fcol><label.small>Contrast</label><input#con.range type=range min=0.5 max=2 step=0.05 value=1></div>
+			</div>
+		</div>
+		<div#filterBar.filterBar>
+			<div.fb-left>
+				<label.chk><input.srcChk type=checkbox value=Sentry checked>Sentry</label>
+				<label.chk><input.srcChk type=checkbox value=Recent checked>Recent</label>
+				<label.chk><input.srcChk type=checkbox value=Saved checked>Saved</label>
+			</div>
+			<button#sortToggle.sortToggle title="Toggle sort order">▼</button>
+		</div>
+		<div#list.list><p.no-data>Open a TeslaCam folder to begin.</p></div>
+		<div#controls.controls>
+			<div.headline><span#dateBig.datebig>-</span><span#timeBig.timebig>-:-:-</span><span#locBig.locbig></span></div>
+			<div.time><span#tStart.tlabel>-</span><div.scrubWrap><input#scrubber.scrubber type=range min=0 max=60 step=0.01 value=0><div#scrubMarks.scrubMarks></div></div><span#tEnd.tlabel>-</span></div>
+			<div.ctrlrow><button#playBtn.btn>▶</button><span#mSource.muted></span><span#mReason.muted style=display:none></span><span#speedBadge.badge title="Playback speed">1×</span></div>
+		</div>
+	</aside>
+	<main.main>
+		<button#menuBtn>☰</button>
+		<div#grid.grid-quad></div>
+		<div#thumbRow></div>
+		<div#mapWrap><div#map></div><button#mapToggle>⤢</button></div>
+	</main>
+</div>

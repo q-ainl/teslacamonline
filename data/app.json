@@ -1,0 +1,28 @@
+{
+    "id": "TeslaCam",
+    "host": "dev.teslacam.online",
+    "dashboard": "phlo",
+    "debug": true,
+    "build": {
+				"auth": true,
+        "libs": [
+            "cookies",
+            "creds",
+            "DB/DB",
+            "DB/model",
+            "DB/MySQL",
+            "DOM/link",
+            "Files/JSON",
+            "payload",
+            "security",
+            "session",
+            "useragent",
+            "visitors"
+        ],
+				"icons": "%app/icons/"
+    },
+    "release": {
+        "php": "%app/release/",
+        "www": "%app/release/www/"
+    }
+}
